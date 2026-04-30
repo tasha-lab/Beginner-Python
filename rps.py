@@ -12,14 +12,12 @@ class RPS(Enum):
 # print(RPS['ROCK'])#RPS.ROCK
 # print(RPS.ROCK.value)#1
 # sys.exit()
-playAgain=True
-while playAgain:
+def rps():
     playerChoice=input('\nEnter...\n1 for rock\n2 for paper or \n3 for scissors:\n\n')
-
+    if playerChoice not in ["1","2","3"]:
+        print('You must chose a number between 1 and 3')
+        return rps()
     player = int(playerChoice)
-
-    if player<1 or player>3:
-        sys.exit('You must chose a number between 1 and 3')  
 
     compChoice = random.choice("123")
     comp = int(compChoice)
@@ -39,11 +37,18 @@ while playAgain:
         print('😲 Its a tie!')
     else:
         print('🐍 You lose!')
-    playAgain =input('\n play again? \n Y for yes\n Q for quit\n')
+    print('\n play again?')
+    while True:
+        playAgain =input(' \nY for yes\nQ for quit\n')
+        if playAgain.lower() not in ['y','q']:
+            continue
+        else:
+            break
+
     
     if playAgain.lower()=='y':
-        continue
+        return rps()
     else:
         print('\n🥳🥳\nThank you for playing')
-        break
-sys.exit("Bye 👋")
+        sys.exit("Bye 👋")
+rps()
