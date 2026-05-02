@@ -32,8 +32,8 @@ def play_rps():
         comp = int(compChoice)
 
         
-        print('\nyou chose '+str(RPS(player)).replace('RPS.','')+'.')
-        print('computer chose '+ str(RPS(comp)).replace('RPS.','') +'.\n')
+        print(f"\nyou chose {str(RPS(player)).replace('RPS.','').title()}.")
+        print(f"computer chose {str(RPS(comp)).replace('RPS.','').title()}.\n")
         
         def decide_winner(player,comp):
             nonlocal player_wins
@@ -58,9 +58,9 @@ def play_rps():
         nonlocal game_count 
         game_count+=1
 
-        print('\nGame count:'+str(game_count))
-        print('\nPlayer wins:'+str(player_wins))
-        print('\ncomputer wins:'+str(comp_wins))
+        print(f"\nGame count:{str(game_count)}")
+        print(f"\nPlayer wins:{str(player_wins)}")
+        print(f"\ncomputer wins:{str(comp_wins)}")
         print('\nplay again?')
         while True:
             playAgain =input(' \nY for yes\nQ for quit\n')
