@@ -3,7 +3,7 @@ import sys
 import random
 from enum import Enum
 
-def play_rps():
+def play_rps(name = 'PlayerOne'):
     game_count=0
     player_wins=0
     comp_wins = 0
@@ -22,9 +22,9 @@ def play_rps():
             PAPER = 2
             SCISSORS = 3
 
-        playerChoice=input('\nEnter...\n1 for rock\n2 for paper or \n3 for scissors:\n\n')
+        playerChoice=input(f"\n{name} Enter...\n1 for rock\n2 for paper or \n3 for scissors:\n\n")
         if playerChoice not in ["1","2","3"]:
-            print('You must chose a number between 1 and 3')
+            print(f" {name}'Please chose a number between 1 and 3'")
             return rps()
         player = int(playerChoice)
 
@@ -32,7 +32,7 @@ def play_rps():
         comp = int(compChoice)
 
         
-        print(f"\nyou chose {str(RPS(player)).replace('RPS.','').title()}.")
+        print(f"\n{name} you chose {str(RPS(player)).replace('RPS.','').title()}.")
         print(f"computer chose {str(RPS(comp)).replace('RPS.','').title()}.\n")
         
         def decide_winner(player,comp):
@@ -40,28 +40,28 @@ def play_rps():
             nonlocal comp_wins
             if player == 1 and comp ==3:
                 player_wins+=1
-                return '🥳 You win!'
+                return f'{name},🥳 You win!'
             elif player == 2 and comp ==1:
                 player_wins+=1
-                return '🥳 You win!'
+                return f'{name}🥳 You win!'
             elif player == 3 and comp ==2:
                 player_wins+=1
-                return '🥳 You win!'
+                return f'{name}🥳 You win!'
             elif player == comp:
                 return '😲 Its a tie!'
             else:
                 comp_wins+=1
-                return '🐍 You lose!'
+                return f'🐍 Comp wins!\n Try again {name}!!'
         game_result = decide_winner(player,comp)
         print(game_result)
 
         nonlocal game_count 
         game_count+=1
 
-        print(f"\nGame count:{str(game_count)}")
-        print(f"\nPlayer wins:{str(player_wins)}")
-        print(f"\ncomputer wins:{str(comp_wins)}")
-        print('\nplay again?')
+        print(f"\nGame count:{game_count}")
+        print(f"\n{name} wins:{player_wins}")
+        print(f"\ncomputer wins:{comp_wins}")
+        print(f'\nplay again,{name}?')
         while True:
             playAgain =input(' \nY for yes\nQ for quit\n')
             if playAgain.lower() not in ['y','q']:
@@ -74,7 +74,22 @@ def play_rps():
             return rps()
         else:
             print('\n🥳🥳\nThank you for playing')
-            sys.exit("Bye 👋")
+            sys.exit(f"Bye {name}👋")
     return rps
-play =play_rps()
-play()
+
+
+#make the game a module
+if __name__ == "__main__":
+    import argparse #commandline option and argumen tparsing library
+
+    parser = argparse.ArgumentParser(
+        description='provides a personalized game experience'
+    )
+    parser.add_argument(
+        '-n','--name',metavar='name',
+        required=True,help='The name of the person to playing the game'
+    )
+    
+    args = parser.parse_args()
+    rock_paper_scissors =play_rps(args.name)
+    rock_paper_scissors()
